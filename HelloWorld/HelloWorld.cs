@@ -8,10 +8,13 @@ namespace HelloWorld
         {
             Console.WriteLine("Hello Eddie!");
 			//this line simply tells me hello!
+
             string name = "";
 			//defining a string called name with no value
+
 		int age = 0;
 		//defining an integer called age with a starting value of 0
+		
 		int year = 0;
 		//defining a value called year with a starting value of 0
 		
