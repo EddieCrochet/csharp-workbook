@@ -23,7 +23,7 @@ namespace HelloWorld
 
 		name = Console.ReadLine();
 		//the user is able to type and enter input to answer the question
-		//the program reads the input and assigns it to the value for our name integer
+		//the program reads the input and assigns it to the value for our name variable
 
 		Console.WriteLine("Please enter your age: ");
 		//a line is printed in our console with the previous text
