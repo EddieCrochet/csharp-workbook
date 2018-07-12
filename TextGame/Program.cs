@@ -6,7 +6,8 @@ namespace TextGame
     {
         static void Main(string[] args)
         {
-            /*  import time
+            /*  
+import time
 import random
 
 # game function
@@ -15,9 +16,13 @@ def game():
 print ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 print ("Welcome to the cavern of secrets!")
 print ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+*/
+Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+Console.WriteLine("Welcome to the cavern of secrets!");
+Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-time.sleep(3)
-
+Thread.Sleep(1500); //time.sleep(3)
+/*
 print ("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.")
 ch1 = str(input("Do you take it? [y/n]: "))
 
