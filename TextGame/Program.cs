@@ -21,11 +21,14 @@ Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 Console.WriteLine("Welcome to the cavern of secrets!");
 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-Thread.Sleep(1500); //time.sleep(3)
+System.Threading.Thread.Sleep(3000); //time.sleep(3)
 /*
 print ("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.")
 ch1 = str(input("Do you take it? [y/n]: "))
+*/
+Console.WriteLine("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.");
 
+/*
 # STICK TAKEN
 if ch1 in ['y', 'Y', 'Yes', 'YES', 'yes']:
     print("You have taken the stick!")
