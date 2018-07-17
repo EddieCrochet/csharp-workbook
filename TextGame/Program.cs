@@ -18,23 +18,39 @@ print ("Welcome to the cavern of secrets!")
 print ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 */
 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-Console.WriteLine("Welcome to the cavern of secrets!");
+Console.WriteLine("Welcome to the cavern of secrets!");     //intro to the game
 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-System.Threading.Thread.Sleep(3000); //time.sleep(3)
+string ch1 = System.String.Empty;
+string ch2 = System.String.Empty;           //assigning variables
+int stick = 0;
+
+System.Threading.Thread.Sleep(3000); //time.sleep(3) ... the game waits a bit
 /*
 print ("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.")
 ch1 = str(input("Do you take it? [y/n]: "))
 */
 Console.WriteLine("You enter a dark cavern out of curiosity. It is dark and you can only make out a small stick on the floor.");
-
+Console.WriteLine("Do you take it?? [y/n]");
+ch1 = Console.ReadLine();
 /*
 # STICK TAKEN
 if ch1 in ['y', 'Y', 'Yes', 'YES', 'yes']:
     print("You have taken the stick!")
     time.sleep(2)
     stick = 1
+    */
 
+//if the stick is taken
+if (ch1 == "y"){
+    Console.WriteLine("You have taken the stick!");
+    System.Threading.Thread.Sleep(2000); 
+    stick = 1;
+}else{      //if the stick is not taken
+    Console.WriteLine("You did not take the stick");
+    stick = 0;
+}
+/*
 # STICK NOT TAKEN
 else:
     print("You did not take the stick")
@@ -42,6 +58,12 @@ else:
 
 print ("As you proceed further into the cave, you see a small glowing object")
 ch2 = str(input("Do you approach the object? [y/n]"))
+
+*/
+Console.WriteLine("As you proceed further into the cave, you see a small glowing object");
+Console.WriteLine("Do you approach the object? [y/n]");
+ch2 = Console.ReadLine();
+/*
 
 # APPROACH SPIDER
 if ch2 in ['y', 'Y', 'Yes', 'YES', 'yes']:
@@ -51,6 +73,20 @@ if ch2 in ['y', 'Y', 'Yes', 'YES', 'yes']:
     time.sleep(1)
     print ("The eye belongs to a giant spider!")
     ch3 = str(input("Do you try to fight it? [Y/N]"))
+
+    */
+    if (ch2 == "y"){        //APPROACH SPIDER
+        Console.WriteLine("You approach the object...");
+        System.Threading.Thread.Sleep(2000);
+        Console.WriteLine("As you draw closer, you begin to make out the object as an eye!");
+        System.Threading.Thread.Sleep(1000);
+        Console.WriteLine("The eye belongs to a giant spider!");
+    }else{  //DO NOT APPROACH SPIDER
+        Console.WriteLine("You turn away from the glowing object, and attempt to leave the cave...");
+    }
+
+
+    /*
 
     # FIGHT SPIDER
     if ch3 in ['y', 'Y', 'Yes', 'YES', 'yes']:
