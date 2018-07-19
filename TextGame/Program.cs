@@ -15,6 +15,7 @@ namespace TextGame
             int complete = 0;
             string lpGm = System.String.Empty;
             bool alive = true;
+
             while (alive == true)
             {
 
@@ -50,7 +51,7 @@ namespace TextGame
                 ch2 = Console.ReadLine();
 
                 if (ch2 == "y")
-                {        //APPROACH SPIDER
+                {                //APPROACH SPIDER
                     Console.WriteLine("You approach the object...");
                     System.Threading.Thread.Sleep(2000);
                     Console.WriteLine("As you draw closer, you begin to make out the object as an eye!");
@@ -58,8 +59,10 @@ namespace TextGame
                     Console.WriteLine("The eye belongs to a giant spider!");
                     Console.WriteLine("Do you try to fight it? [Y/N]");
                     ch3 = Console.ReadLine();
-                    if (ch3 == "y"){     //IF YOU DECIDE TO FIGHT THE SPIDER
-                        if (stick == 1){        //FIGHT SPIDER AND HAVE A STICK
+                    if (ch3 == "y")
+                    {           //IF YOU DECIDE TO FIGHT THE SPIDER
+                        if (stick == 1)
+                        {                //FIGHT SPIDER AND HAVE A STICK
                             Console.WriteLine("You only have a stick to fight with!");
                             Console.WriteLine("You quickly jab the spider in it's eye and gain an advantage!");
                             System.Threading.Thread.Sleep(2000);
@@ -75,18 +78,25 @@ namespace TextGame
                             Console.WriteLine("Your hit does " + playerDmg + " damage!");
                             Console.WriteLine("The spiders hit does " + spiderDmg + " damage!");
                             System.Threading.Thread.Sleep(2000);
-                                if (spiderDmg > playerDmg){     //IF SPIDER DEALS MORE DAMAGE THAN YOU
+                                if (spiderDmg > playerDmg)
+                                {     //IF SPIDER DEALS MORE DAMAGE THAN YOU
                                     Console.WriteLine("The spider has dealt more damage than you!");
                                     System.Threading.Thread.Sleep(1000);
                                     complete = 0;
-                                }else if (playerDmg < 5){       //NOT ENOUGH DMG TO KILL SPIDER BUT SURVIVED BATTLE
+                                }
+                                else if (playerDmg < 5)
+                                {       //NOT ENOUGH DMG TO KILL SPIDER BUT SURVIVED BATTLE
                                     Console.WriteLine("You didn't kill the spider but you manage to escape.");
                                     complete = 1;
-                                }else{          //BEAT THE SPIDER IN BATTLE
+                                }
+                                else
+                                {          //BEAT THE SPIDER IN BATTLE
                                     Console.WriteLine("You killed the spider!"); 
                                     complete = 1;    
                                 }
-                        }else if (stick == 0){          //FIGHT SPIDER AND HAVE NO STICK
+                        }
+                        else if (stick == 0)
+                        {          //FIGHT SPIDER AND HAVE NO STICK
                             Console.WriteLine("You don't have anything to fight with!");
                             System.Threading.Thread.Sleep(2000);
                             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -101,24 +111,33 @@ namespace TextGame
                             Console.WriteLine("Your hit does " + playerDam + " damage!");
                             Console.WriteLine("The spiders hit does " + spiderDam + " damage!");
                             System.Threading.Thread.Sleep(2000);
-                            if (spiderDam > playerDam){     //IF SPIDER DEALS MORE DAMAGE THAN YOU
+                            if (spiderDam > playerDam)
+                            {     //IF SPIDER DEALS MORE DAMAGE THAN YOU
                                 Console.WriteLine("The spider has dealt more damage than you!");
                                 complete = 0;
-                            }else if (playerDam < 5){       //NOT ENOUGH TO KILL THE SPIDER BUT SURVIVED BATTLE
+                            }
+                            else if (playerDam < 5)
+                            {       //NOT ENOUGH TO KILL THE SPIDER BUT SURVIVED BATTLE
                                 Console.WriteLine("You didn't kill the spider but you managed to escape");
                                 complete = 1;
-                            }else{           //KILLED TH SPIDER IN BATTLE
+                            }
+                            else
+                            {           //KILLED TH SPIDER IN BATTLE
                                 Console.WriteLine("You killed the spider!");
                                 complete = 1;
                             }
                         }
-                    }else{      //DECIDE NOT TO FIGHT THE SPIDER
+                    }
+                    else
+                    {      //DECIDE NOT TO FIGHT THE SPIDER
                         Console.WriteLine("You choose not to fight the spider...");
                         System.Threading.Thread.Sleep(1000);
                         Console.WriteLine("As you turn away, it ambushes you and impales you with it's fangs!!!");
                         complete = 0;
                     }
-                }else{  //DO NOT APPROACH SPIDER
+                }
+                else
+                {  //DO NOT APPROACH SPIDER
                     Console.WriteLine("You turn away from the glowing object, and attempt to leave the cave...");
                     System.Threading.Thread.Sleep(2000);
                     Console.WriteLine("But something won't let you....");
@@ -130,13 +149,22 @@ namespace TextGame
                             if (complete == 1)
                             {
                                 Console.WriteLine("You managed to escape the cavern alive! Would you like to play again? [y/n]:");
-                                alive = Convert.ToBoolean(Console.ReadLine());
-                                if (LpGm == "y")
+                                string check = Console.ReadLine().ToLower();
+                                if (check == "y")
                                 { //IF YOU CHOSE TO PLAY AGAIN IT LOOPS THE MAIN GAME BACK TO THE START
-                    
+                                    alive = true;
+                                }
+                                else
+                                {
+                                    alive = false;
                                 }
                             }
-                        }
+                            else
+                            {
+                                Console.WriteLine("You have been killed...");
+                                break;
+                            }
+            }
         }
     }
 }
