@@ -15,7 +15,10 @@ namespace TicTacToe
         public static void Main()
         {
             do
-            {
+            {   
+                //swap indiscriminate means even if inout in invalid we swap
+                //swap player turn... let getinput swap player turn at end
+                //make getinput retun true or false adn use that t/f to determine weather we swap or not
                 DrawBoard();
                 GetInput();
 
@@ -32,18 +35,24 @@ namespace TicTacToe
             int row = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter Column:");
             int column = int.Parse(Console.ReadLine());
+            PlaceMark(row, column);
         }
 
         public static void PlaceMark(int row, int column)
         {
         // your code goes here
+
         }
 
         public static bool CheckForWin()
         {
             // your code goes here
-
-            return false;
+        bool won = false;
+        if(HorizontalWin() || VerticalWin() || DiagonalWin())
+        {
+            won = true;
+        }
+            return won;
         }
 
         public static bool CheckForTie()
