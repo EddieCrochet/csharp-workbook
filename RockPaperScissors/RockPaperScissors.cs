@@ -4,59 +4,91 @@ namespace RockPaperScissors
 {
     class Program
     {
+        public static int pScore = 0;
+        public static int cScore = 0;
+
         public static void Main()
         {
-            Console.WriteLine("Enter hand 1:");
-            string hand1 = Console.ReadLine().ToLower();
+            //the user is allowed a choice of hand to play with
+            Console.WriteLine("Do you choose Rock, Paper, or Scissors?");
+            string pHand = Console.ReadLine().ToLower();
+            string cHand = System.String.Empty;
 
+//generate random number and assign to an integer
             Random rng = new Random();
-            rng.Next(0, 2);
+            int ran = rng.Next(0, 2);
 
-            Console.WriteLine("Enter hand 2:");
-            string hand2 = Console.ReadLine().ToLower();
-            Console.WriteLine(CompareHands(hand1, hand2));
+//assign random selected number to rock, paper, or scissors and call that the computer's hand
+            if (ran == 0)   
+            {
+                cHand = "rock";
+            }else if (ran == 1)
+            {
+                cHand = "paper";
+            }else
+            {
+                cHand = "scissors";
+            }
+
+//lets you know the computer choice
+//outputs the winning results
+            Console.WriteLine("Computer has chosen "+cHand); 
+            CompareHands(pHand, cHand);
+            Console.WriteLine("You: " +pScore);
+            Console.WriteLine("Me: " +cScore);
 
             // leave this command at the end so your program does not close automatically
             Console.ReadLine();
+            Replay();
+            
         }
         
-        public static string CompareHands(string hand1, string hand2)
+
+        public static void CompareHands(string pHand, string cHand)
+        //create function to actually evaluate the winner
         {
-            if (hand1 == hand2)
-        {
-        return "It's a tie!";
+            if (pHand == cHand)
+            {
+                Console.WriteLine("It's a tie!");
+            }
+
+            else if (pHand == "rock" && cHand == "scissors")
+            {
+                pScore++;
+                Console.WriteLine("You win! computers will rise again");
+            }
+            
+            else if (pHand == "paper" && cHand == "rock")
+            {
+                pScore++;
+                Console.WriteLine("You win! computers will rise again");
+            }
+
+            else if (pHand == "scissors" && cHand == "paper")
+            {
+                pScore++;
+                Console.WriteLine("You win! computers will rise again");
+            }
+            else
+            {
+                cScore++;
+                Console.WriteLine("I beat a human!!!");
+            }
+            
         }
 
-        if (hand1 == "rock")
+        public static void Replay()
         {
-        if (hand2 == "scissors")
-        {
-            return "Hand one wins!";
-        }
-        // If we reach here, player 2 must have dealt paper
-        return "Hand two wins!";
-        }
-
-        if (hand1 == "paper")
-        {
-        if (hand2 == "rock")
-        {
-            return "hand one wins!";
-        }
-        //if we reach here, player 2 must have dealt scissors
-            return "Hand two wins!";
-        }
-
-        if (hand1 == "scissors")
-        {
-        if (hand2 == "paper")
-        {
-            return "Hand one wins!";
-        } 
-        //If we get here we know that player two has dealt rock
-            return "Hand two wins!";
-        }
-            return hand1 + ' ' + hand2;
+            Console.WriteLine("Do you want to play again? [y/n]");
+            string replay = Console.ReadLine().ToLower();
+            if (replay == "y")
+            {
+                Main();
+            }
+            else 
+            {
+                Console.WriteLine("Thanks for playing!!");
+            }
         }
     }
 }
