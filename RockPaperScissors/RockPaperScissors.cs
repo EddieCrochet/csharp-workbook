@@ -10,10 +10,30 @@ namespace RockPaperScissors
         public static void Main()
         {
             //the user is allowed a choice of hand to play with
-            Console.WriteLine("Do you choose Rock, Paper, or Scissors?");
-            string pHand = Console.ReadLine().ToLower();
-            string cHand = System.String.Empty;
+            string pHand = System.String.Empty;
+            try
+            {
+                Console.WriteLine("Do you choose Rock, Paper, or Scissors?");
+                pHand = Console.ReadLine().ToLower();
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+            finally
+            {
+                if (pHand != "rock" && pHand != "paper" && pHand != "scissors")
+                {
+                    Console.WriteLine("YOU HAVE MADE NO SELECTION!!!!");
+                }
+                else
+                {
+                Console.WriteLine("You have chosen " +pHand);
+                }
+            }
+//try-catch-and exception to not allow the user to input any thing that is not rock or paper or scissors
 
+            string cHand = System.String.Empty;
 //generate random number and assign to an integer
             Random rng = new Random();
             int ran = rng.Next(0, 2);
