@@ -11,6 +11,7 @@ namespace Checkpoint1
             ProgramTwo();
             ProgramThree();
             ProgramFour();
+            ProgramFive();
         }
 
         static void ProgramOne()
@@ -91,13 +92,98 @@ namespace Checkpoint1
             {
                 userInput = userInput * i;
             }
-            Console.WriteLine("the facorial is " +userInput); 
+            Console.WriteLine("the factorial is " +userInput); 
+            Console.WriteLine();
             //calculate and output
         }
 
         static void ProgramFour()
         {
+            Console.WriteLine("Program Four...");
+            //the computer stores a number between 1 and 10 in the int compChoice
+            Random rng = new Random();
+            int compChoice = rng.Next(1,11);
+            //int for the user number later on after some conversions
+            int userNum = 0;
+
+            Console.WriteLine("I am thinking of a number between 1 and 10.");
+            Console.WriteLine();
+            Console.WriteLine("I will give you 4 guesses to find my number. You may begin");
+            Console.WriteLine();
+
+            //a for loop to keep track of howmany guesses/which one we are on
+            for (int i = 4; i>0; i--)
+            {
+                Console.WriteLine("Enter a guess:");
+                string userInput = Console.ReadLine();
+
+                //converting the user input from string to int
+                bool convert = Int32.TryParse(userInput, out userNum);
+
+                if (convert)
+                //if the conversion works
+                {
+                    if (userNum == compChoice)
+                    {
+                        Console.WriteLine("Darn. You got me. You won");
+                        break;
+                    }
+                    else if (i == 1)
+                    {
+                        Console.WriteLine("You lose. No more guesses!");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong. You lose. You have {0} guesses left",i-1);
+                    }
+                }
+                else
+                //if the conversion does not work
+                {
+                    Console.WriteLine("Thats not a number and you lose a guess!");
+
+                }               
+            }
+            Console.WriteLine();
+        }
+
+ 
+        public static void ProgramFive()
+        {
+            //intro to the program
+            Console.WriteLine("Program Five...");
+            Console.WriteLine();
+            Console.WriteLine("Please enter a series of numbers separated by commas.");
+            Console.WriteLine();
+
+            //creates a list to store the ints in later
+            List<int> userFinal = new List<int>();
+            //reads what the user inputs
+            string userInput = Console.ReadLine();
+            //variable for a data type conversion later on
+            //loop to begin conversions
+//read input as string
+//split string
+
+            string[] myArray = userInput.Split(',');
             
+
+            foreach (string s in myArray)
+            {
+                int options = 0;
+                bool result = Int32.TryParse(s, out options);
+
+                if (result)
+                {
+                    userFinal.Add(options);
+                }
+            }
+
+            userFinal.Sort();
+            userFinal.Reverse();
+
+            Console.WriteLine("The largest number is {0}.",userFinal[0]);
         }
     }
 }
