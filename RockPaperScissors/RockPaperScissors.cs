@@ -16,7 +16,7 @@ namespace RockPaperScissors
 
 //generate random number and assign to an integer
             Random rng = new Random();
-            int ran = rng.Next(0, 2);
+            int ran = rng.Next(0, 3);
 
 //assign random selected number to rock, paper, or scissors and call that the computer's hand
             if (ran == 0)   
