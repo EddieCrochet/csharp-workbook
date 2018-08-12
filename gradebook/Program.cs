@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace gradebook
 {
@@ -6,7 +7,8 @@ namespace gradebook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Please enter your students names one at a time and enter ok when yoiu are done.");
+
         }
     }
 }
