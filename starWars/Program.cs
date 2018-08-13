@@ -6,9 +6,17 @@ public class Program
 	{
 		Person leia = new Person("Leia", "Organa", "Rebel");
 		Person darth = new Person("Darth", "Vader", "Imperial");
-		Ship falcon = new Ship("Rebel", "Smuggling", 2);
-		Ship tie = new Ship("Tie", "Fighter", 1);
+		Person luke = new Person("Luke", "Skywalker", "Rebel");
+		Person han = new Person("Han", "Solo", "Rebel");
+		Person palp = new Person("Emporer", "Palpatine", "Imperial");
+		Ship x = new Ship("xwing", "x-wing", "fighter", 2);
+		Ship falcon = new Ship("MilFal", "Rebel", "Smuggling", 2);
+		Ship tie = new Ship("TieFie", "Tie", "Fighter", 1);
+		Station station1 = new Station("Rebel Space Station", "Rebel", 3);
+		Station station2 = new Station("Death Star", "Imperial", 3);
+
 		Console.WriteLine("Hello world!");
+
 	}
 }
 
@@ -43,11 +51,18 @@ class Person
 class Ship
 {
 	private Person[] passengers;
-	public Ship(string alliance, string type, int size)
+	public Ship(string name, string alliance, string type, int size)
 	{
+		this.Name = name;
 		this.Type = type;
 		this.Alliance = alliance;
 		this.passengers = new Person[size];
+	}
+
+	public string Name
+	{
+		get;
+		set;
 	}
 
 	public string Type
@@ -88,13 +103,26 @@ class Ship
 
 class Station
 {
-    public string name {get; set;}
-    public string alliance {get; set;}
-    private Ship[] parkedShips;
-    public Station(string name, string alliance, int parkedShips)
+	public string Name {get; set;}
+	public string Alliance {get; set;}
+	public int Size {get; set;}
+	public Ship[] Docked;
+
+	public Station(string name, string alliance, int size)
     {
-        this.name = name;
-        this.alliance = alliance;
-        this.parkedShips = parkedShips;
+        this.Name = name;
+        this.Alliance = alliance;
+		this.Size = size;
+		this.Docked = new Ship[size];
     }
+
+	public void DockShip(Ship ship, int port)
+	{
+		this.Docked[port] = ship;
+	}
+
+	public void UnDockShip(Ship ship, int port)
+	{
+		this.Docked[port] = ship;
+	}
 }
