@@ -48,9 +48,7 @@ namespace PigLatin
                 firstPart = word.Substring( 0, letterPos);
                 restOfWord = word.Substring(letterPos);
                 return restOfWord + firstPart +"ay";
-            }
-            // your code goes here{0}
-            return word;
+            }       
         }
     }
 }
