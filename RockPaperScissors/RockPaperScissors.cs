@@ -46,6 +46,7 @@ namespace RockPaperScissors
 
         public static void CompareHands(string pHand, string cHand)
         //create function to actually evaluate the winner
+        //also keeps track of the score based on who won the hand
         {
             if (pHand == cHand)
             {

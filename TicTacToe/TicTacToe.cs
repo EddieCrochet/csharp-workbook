@@ -67,6 +67,7 @@ namespace TicTacToe
                 board[2][2] == playerTurn)
                 {
                     Console.WriteLine("It's a tie!");
+                    return true;
                 }
 
             return false;
