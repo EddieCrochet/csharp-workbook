@@ -19,7 +19,7 @@ namespace Rainforest
             Container Dallas2 = new Container(6, "non-perishable");
             Item bananas = new Item("Bananas", 2.43);
             Item apples = new Item ("Apples", 0.97);
-            Item granolaBars = new Item("Granola Bars");
+            Item granolaBars = new Item("Granola Bars", 0.56);
 
             //NEED TO ADD ITEMS INTO ALL CONTAINERS!!!!
 
@@ -32,6 +32,15 @@ namespace Rainforest
             Dallas.containers.Add(Dallas2);
             Houston.containers.Add(Houston1);
             Houston.containers.Add(Houston2);
+            Houston1.items.Add(bananas);
+            Houston1.items.Add(apples);
+            Houston2.items.Add(granolaBars);
+            Austin1.items.Add(bananas);
+            Austin1.items.Add(apples);
+            Austin2.items.Add(granolaBars);
+            Dallas1.items.Add(bananas);
+            Dallas1.items.Add(apples);
+            Dallas2.items.Add(granolaBars);
 
 
             Console.WriteLine("the build was so far successful!");
