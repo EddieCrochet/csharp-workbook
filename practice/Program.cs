@@ -2,6 +2,14 @@
 
 namespace practice
 {
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //getting errors cause i have not built anything or called any constructiors
+        }
+    }
+
     class Vehicle
     {
         public int engineSize;
@@ -13,6 +21,11 @@ namespace practice
             this.engineSize = engineSize;
             this.numTires = numTires;
             this.passengerCapacity = passengerCapacity;
+        }
+
+        public override string hydraulics()
+        {
+            return "this vehicle is bumping at the axles!";
         }
     }
 
@@ -26,6 +39,11 @@ namespace practice
         {
             this.bedSize = bedSize;
             this.towingCapacity = towingCapacity;
+        }
+
+        public override string hydraulics()
+        {
+            return "so much power that it got some air!";
         }
     }
 
@@ -48,14 +66,6 @@ namespace practice
         : base(engineSize, 2, passengerCapacity)
         {
             this.cruiser = cruiser;
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            
         }
     }
 }
