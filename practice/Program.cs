@@ -6,7 +6,11 @@ namespace practice
     {
         static void Main(string[] args)
         {
-            //getting errors cause i have not built anything or called any constructiors
+            Vehicle veh = new Vehicle(40, 4, 5);
+            Vehicle myTruck = new Truck(50, 500, 50, 3, 5);
+
+            Console.WriteLine("Veh: " +veh.hydraulics());
+            Console.WriteLine("myTruck: " +myTruck.hydraulics());
         }
     }
 
@@ -23,9 +27,9 @@ namespace practice
             this.passengerCapacity = passengerCapacity;
         }
 
-        public override string hydraulics()
+        public virtual string hydraulics()
         {
-            return "this vehicle is bumping at the axles!";
+            return "and we bumpin";
         }
     }
 
