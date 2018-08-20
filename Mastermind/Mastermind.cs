@@ -19,6 +19,11 @@ namespace Mastermind
         
         // test solution
         public static char[] solution = new char[] {'a', 'b', 'c', 'd'};
+        //
+        //Why use a char array when the Game wants a string array? are we supposed to convert for the solution?
+        //
+        //
+        //
         
         // game board
         public static string[][] board = new string[allowedAttempts][];
@@ -29,40 +34,54 @@ namespace Mastermind
             CreateBoard();
             DrawBoard();
             Console.WriteLine("Enter Guess:");
-            
-            Game game = new Game(new string[]{"a", "b", "c", "d"});
 
+            bool win = false;
+            Game game = new Game(new string[] {"a", "b", "c", "d"});
+            
             for(int turns = 10; turns > 0; turns--)
             {
+                char[] guess = new char[4];
+
                 Console.WriteLine($"You have {turns} tries left");
                 Console.WriteLine("Choose four letters");
-                string letters = Console.ReadLine();
+                guess = Console.ReadLine().ToCharArray();
+
                 Ball[] balls = new Ball[4];
                 for(int i = 0; i < 4; i++)
                 {
                     balls[i] = new Ball(letters[i].ToString());
                 }
-                CheckSolution(balls);
-                if(CheckSolution(balls))
+
+                if (CheckSolution(guess))
                 {
+                    Console.WriteLine("You win!");
+                    win = true;
                     break;
                 }
-                //for every turn we are going to check the solution
-                Row row = new Row(balls);
-                game.AddRow(row);
-                Console.WriteLine(game.Rows);
+                else
+                {
+                    //for every turn we are going to check the solution
+                    Row row = new Row(balls);
+                    game.AddRow(row);
+                    Console.WriteLine(game.Rows);
+                }
+
+
             }
-            Console.WriteLine("Out of turns!");
+            if (!win)
+                Console.WriteLine("Out of turns!");
 
             // leave this command at the end so your program does not close automatically
             Console.ReadLine();
         }
         
-        public static bool CheckSolution(Ball[] guess)
+        public static bool CheckSolution(char[] guess)
         {
-            if(guess == solution)
+            string g = new string(guess);
+            string s = new string(solution);
+
+            if(g == s)
             {
-                Console.WriteLine("You won the game!");
                 return true;
             }
 
