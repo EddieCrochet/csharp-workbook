@@ -18,6 +18,11 @@ namespace practice
         {
             this.hourlyRentalRate = HourlyRentalRate;
         }
+
+        public static rent(double days)
+        {
+            
+        }
     }
 
     class HotelRoom
