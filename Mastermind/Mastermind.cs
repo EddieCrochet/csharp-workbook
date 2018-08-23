@@ -3,221 +3,95 @@ using System.Collections.Generic;
 
 namespace Mastermind
 {
-    class Program
+    class Ball
     {
-        // possible letters in code
-        public static char[] letters = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
-        
-        // size of code
-        public static int codeSize = 4;
-        
-        // number of allowed attempts to crack the code
-        public static int allowedAttempts = 10;
-        
-        // number of tried guesses
-        public static int numTry = 0;
-        
-        // test solution
-        public static char[] solution = new char[] {'a', 'b', 'c', 'd'};
-        //
-        //Why use a char array when the Game wants a string array? are we supposed to convert for the solution?
-        //
-        //
-        //
-        
-        // game board
-        public static string[][] board = new string[allowedAttempts][];
-        
-        
-        public static void Main(string[] args)
-        {
-            CreateBoard();
-            DrawBoard();
-            Console.WriteLine("Enter Guess:");
+        public string Letter{get; private set;}
 
-            bool win = false;
-            Game game = new Game(new string[] {"a", "b", "c", "d"});
-            
-            for(int turns = 10; turns > 0; turns--)
-            {
-                char[] guess = new char[4];
-
-                Console.WriteLine($"You have {turns} tries left");
-                Console.WriteLine("Choose four letters");
-                guess = Console.ReadLine().ToCharArray();
-
-                Ball[] balls = new Ball[4];
-                for(int i = 0; i < 4; i++)
-                {
-                    balls[i] = new Ball(letters[i].ToString());
-                }
-
-                if (CheckSolution(guess))
-                {
-                    Console.WriteLine("You win!");
-                    win = true;
-                    break;
-                }
-                else
-                {
-                    //for every turn we are going to check the solution
-                    Row row = new Row(balls);
-                    game.AddRow(row);
-                    Console.WriteLine(game.Rows);
-                }
-
-
-            }
-            if (!win)
-                Console.WriteLine("Out of turns!");
-
-            // leave this command at the end so your program does not close automatically
-            Console.ReadLine();
-        }
-        
-        public static bool CheckSolution(char[] guess)
-        {
-            string g = new string(guess);
-            string s = new string(solution);
-
-            if(g == s)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        
-        public static string GenerateHint(char[] guess)
-        {
-            // Your code here
-            return " ";
-        }
-        
-        public static void InsertCode(char[] guess)
-        {
-            // Your code here
-        }
-        
-        public static void CreateBoard()
-        {
-            for (var i = 0; i < allowedAttempts; i++)
-            {
-                board[i] = new string[codeSize + 1];
-                for (var j = 0; j < codeSize + 1; j++)
-                {
-                    board[i][j] = " ";
-                }
-            }
-        }
-        
-        public static void DrawBoard()
-        {
-            for (var i = 0; i < board.Length; i++)
-            {
-                Console.WriteLine("|" + String.Join("|", board[i]));
-            }
-            
-        }
-        
-        public static void GenerateRandomCode() {
-            Random rnd = new Random();
-            for(var i = 0; i < codeSize; i++)
-            {
-                solution[i] = letters[rnd.Next(0, letters.Length)];
-            }
-        }
-    }
-
-    class Ball 
-    {
-        public string Letter {get; private set;}
-        //stores what letter the ball is representing
-
-        public Ball(string letter)
-        //constructor passes the letters
+        public Ball (string letter)
         {
             this.Letter = letter;
         }
     }
-
     class Row
     {
         public Ball[] balls = new Ball[4];
-        //four balls in one row (or turn)
+        //creates array of 4 of the Ball class
 
-        public Row(Ball[] balls)
-        //the constructor passes the balls
+        public Row (Ball[] balls)
         {
             this.balls = balls;
         }
+
         public string Balls
-        {
-            get
+        {get
+        {foreach(var ball in this.balls)
             {
-                foreach (var ball in this.balls)
-                {
-                    Console.Write(ball.Letter);
-                    //for each ball in this char array called balls, it will print the letter of the ball
-                }
-                return "";
+                Console.WriteLine(ball.Letter);
             }
+        return "";
+        }
         }
     }
+
     class Game
     {
         private List<Row> rows = new List<Row>();
-        public string[] answer = new string[4];
+        //creates a private list of the Row class
+        private string[] answer = new string[4];
+        //create a new array of strings with the size of 4 to hold our answer
 
         public Game(string[] answer)
         {
             this.answer = answer;
         }
+
         private string Score (Row row)
-        //method to keep the score
         {
-            string[] answerClone = (string[]) this.answer.Clone();
+            string[] answerClone = (string[]) this.answer.Clone ();
+            // red is correct letter and correct position
+            // white is correct letters minus red
+            // this.answer => ["a", "b", "c", "d"]
+            // row.balls => [{ Letter: "c" }, { Letter: "b" }, { Letter: "d" }, { Letter: "a" }]
             int red = 0;
-            for(int i = 0; i < 4; i++)
-            //loops to check the letter of each of the balls in the turn
+            for (int i = 0; i<4; i++)
             {
                 if (answerClone[i] == row.balls[i].Letter)
-                //checking each of the balls letters in the anser clone
-                {
-                    red++;
-                    //if it's right, add one value to the 'red' counter
-                }
+                red++;
             }
             int white = 0;
-            for(int i = 0; i < 4; i++)
-            //loops to check the location of each of the balls in the row (turn)
+            for(int i = 0; i<4; i++)
             {
                 int foundIndex = Array.IndexOf(answerClone, row.balls[i].Letter);
-                //foundIndex will represent each separate ball in the loop for that row
-                //and will grab the letter of it to check against correct answer
                 if(foundIndex > -1)
                 {
                     white++;
                     answerClone[foundIndex] = null;
                 }
             }
-            return $"{red} - {white - red}";
+            return "{red} - {white - red}";
         }
-        public void AddRow (Row row)
+    }
+    class program
+    {
+        public static void Main(string[] args)
         {
-            this.rows.Add(row);
-        }
-        public string Rows
-        {
-            get
+            Game game = new Game(new string[] {"a", "b", "c", "d"});
+            for (int turns = 10; turns > 0; turns--)
             {
-                foreach(var row in this.rows)
+                Console.WriteLine("You have {0} tries left!", turns);
+                Console.WriteLine("Choose four letters: ");
+                string letters = Console.ReadLine();
+                Ball[] balls = new Ball[4];
+                for (int i = 0; i<4; i++)
                 {
-                    Console.Write(row.balls);
-                    Console.WriteLine(Score(row));
+                    balls[i] = new Ball(letters[i].ToString());
                 }
-                return"";
+                Row row = new Row(balls);
+                game.AddRow(row);
+                Console.WriteLine(game.Rows);
             }
+
+            Console.WriteLine("Out of turns!");
         }
     }
 }
