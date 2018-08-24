@@ -94,11 +94,21 @@ namespace Mastermind
                 //makes a new Row called row where we pass in the users' balls, all now in their own separate strings
                 game.rows.Add(row);
                 //add the row of the new balls we created to the list of rows in the game
+                CheckWin(row);
+                //checks if the correct answer has been guessed every turn
                 Console.WriteLine(game.Score(row));
                 //tells me the score (red and white respectively) for that particular turn
             }
 
             Console.WriteLine("Out of turns!");
+        }
+        public string CheckWin(Row row)
+        {
+            if (Game.answer == rows) 
+            {
+                Console.WriteLine("You win!");
+            }
+            return "";
         }
     }
 }
