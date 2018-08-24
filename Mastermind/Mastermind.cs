@@ -45,7 +45,7 @@ namespace Mastermind
             this.answer = answer;
         }
 
-        private string Score (Row row)
+        public string Score (Row row)
         {
             string[] answerClone = (string[]) this.answer.Clone ();
             // red is correct letter and correct position
@@ -68,7 +68,7 @@ namespace Mastermind
                     answerClone[foundIndex] = null;
                 }
             }
-            return "{red} - {white - red}";
+            return $"{red} - {white - red}";
         }
     }
     class program
@@ -94,7 +94,8 @@ namespace Mastermind
                 //makes a new Row called row where we pass in the users' balls, all now in their own separate strings
                 game.rows.Add(row);
                 //add the row of the new balls we created to the list of rows in the game
-                Console.WriteLine(game.rows);
+                Console.WriteLine(game.Score(row));
+                //tells me the score (red and white respectively) for that particular turn
             }
 
             Console.WriteLine("Out of turns!");
