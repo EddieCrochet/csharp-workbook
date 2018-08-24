@@ -81,12 +81,17 @@ namespace Mastermind
                 Console.WriteLine("You have {0} tries left!", turns);
                 Console.WriteLine("Choose four letters: ");
                 string letters = Console.ReadLine();
+                //reads the chosen letters as a string letters
                 Ball[] balls = new Ball[4];
                 for (int i = 0; i<4; i++)
+                //checks each one of the balls
                 {
                     balls[i] = new Ball(letters[i].ToString());
+                    //each of the 4 balls created in the array are assigned to a string of one letter
+                    //the letters come from string the user typed in and entered to the string letters
                 }
                 Row row = new Row(balls);
+                //makes a new Row called row where we pass in the users' balls, all now in their own separate strings
                 game.AddRow(row);
                 Console.WriteLine(game.Rows);
             }
