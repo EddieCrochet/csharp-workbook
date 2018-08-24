@@ -35,7 +35,7 @@ namespace Mastermind
 
     class Game
     {
-        private List<Row> rows = new List<Row>();
+        public List<Row> rows = new List<Row>();
         //creates a private list of the Row class
         private string[] answer = new string[4];
         //create a new array of strings with the size of 4 to hold our answer
@@ -92,8 +92,9 @@ namespace Mastermind
                 }
                 Row row = new Row(balls);
                 //makes a new Row called row where we pass in the users' balls, all now in their own separate strings
-                game.AddRow(row);
-                Console.WriteLine(game.Rows);
+                game.rows.Add(row);
+                //pass in the row of the new balls we created to the list of rows in the game
+                Console.WriteLine(game.rows);
             }
 
             Console.WriteLine("Out of turns!");
