@@ -104,7 +104,7 @@ namespace Mastermind
         }
         public string CheckWin(Row row)
         {
-            if (Game.answer == rows) 
+            if (Game.Score() == Answer) 
             {
                 Console.WriteLine("You win!");
             }
