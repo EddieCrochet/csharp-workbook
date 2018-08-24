@@ -93,7 +93,7 @@ namespace Mastermind
                 Row row = new Row(balls);
                 //makes a new Row called row where we pass in the users' balls, all now in their own separate strings
                 game.rows.Add(row);
-                //pass in the row of the new balls we created to the list of rows in the game
+                //add the row of the new balls we created to the list of rows in the game
                 Console.WriteLine(game.rows);
             }
 
