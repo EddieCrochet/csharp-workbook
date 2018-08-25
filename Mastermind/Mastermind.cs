@@ -24,7 +24,8 @@ namespace Mastermind
 
         public string Balls
         {get
-        {foreach(var ball in this.balls)
+        {
+            foreach(var ball in this.balls)
             {
                 Console.WriteLine(ball.Letter);
             }
@@ -37,12 +38,14 @@ namespace Mastermind
     {
         public List<Row> rows = new List<Row>();
         //creates a private list of the Row class
-        private string[] answer = new string[4];
+        public string[] answer = new string[4];
         //create a new array of strings with the size of 4 to hold our answer
+        public int guesses = 0;
 
-        public Game(string[] answer)
+        public Game(string[] answer, int guesses)
         {
             this.answer = answer;
+            this.guesses = guesses;
         }
 
         public string Score (Row row)
@@ -75,8 +78,11 @@ namespace Mastermind
     {
         public static void Main(string[] args)
         {
-            Game game = new Game(new string[] {"a", "b", "c", "d"});
-            for (int turns = 10; turns > 0; turns--)
+            string[] answer = CreateAnswer();
+            
+            Game game = new Game(answer, 4);
+            bool won = false;
+            for (int turns = game.guesses; turns > 0; turns--)
             {
                 Console.WriteLine("You have {0} tries left!", turns);
                 Console.WriteLine("Choose four letters: ");
@@ -94,21 +100,33 @@ namespace Mastermind
                 //makes a new Row called row where we pass in the users' balls, all now in their own separate strings
                 game.rows.Add(row);
                 //add the row of the new balls we created to the list of rows in the game
-                CheckWin(row);
+
                 //checks if the correct answer has been guessed every turn
-                Console.WriteLine(game.Score(row));
+                if (game.Score(row) == "4 - 0")
+                {
+                    Console.WriteLine("You win!");
+                    won = true;
+                    break;
+                }
+                else
+                    Console.WriteLine(game.Score(row));
                 //tells me the score (red and white respectively) for that particular turn
             }
-
-            Console.WriteLine("Out of turns!");
+            if (won == false)
+                Console.WriteLine("Out of turns!");
         }
-        public string CheckWin(Row row)
+
+        private static string[] CreateAnswer()
         {
-            if (Game.Score() == Answer) 
+            string[] answer = new string[4];
+            for (int i=0; i < 4; i++)
             {
-                Console.WriteLine("You win!");
+                Random rnd = new Random();
+                int num = rnd.Next(0, 4);
+                char letter = (char)('a' + num);
+                answer[i] = letter.ToString();
             }
-            return "";
+            return answer;
         }
     }
 }
