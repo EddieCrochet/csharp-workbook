@@ -8,19 +8,37 @@ namespace Checkers
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Jew can dew eet!!");
         }
     }
 
     public class Checker
     {
-        public string Symbol  { get; set; }
+        public string Symbol  { get; }
         public int[] Position  { get; set; }
         public string Color { get; set; }
         
         public Checker(string color, int[] position)
         {
-            // Your code here
+            this.Position = position;
+
+            int openCircleId = int.Parse("25CB", System.Globalization.NumberStyles.HexNumber);
+            string openCircle = char.ConvertFromUtf32(openCircleId);
+            int closedCircleId = int.Parse("25CF", System.Globalization.NumberStyles.HexNumber);
+            string closedCircle = char.ConvertFromUtf32(closedCircleId);
+            //above code block creates the open and closed circle symbols and sets them to strings we can use
+
+
+            if (color == "white")
+            //white checkers will be designated by a closed circle
+            {
+                Symbol = closedCircle;
+            }
+            else if(color == "black")
+            //black bircles wil be designated by an open circle
+            {
+                Symbol = openCircle;
+            }
         }
     }
 
@@ -31,7 +49,7 @@ namespace Checkers
         
         public Board()
         {
-            // Your code here
+            string[,] gameGrid = new string[8,8];
             return;
         }
         
