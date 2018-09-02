@@ -8,10 +8,10 @@ namespace practice
         static void Main(string[] args)
         {
             //instantiated the reader
-            StreamReader reader = new StreamReader(@"C:\\This PC\Desktop\words_alpha.txt");
+            StreamReader reader = new StreamReader(@"C:\Users\Eddie\Desktop\words_alpha.txt");
             //create a reader and a copied version of data in writer to start with
             //instantiate a writer
-            StreamWriter writer = new StreamWriter(@"C:\\This PC\Desktop\words.copy.txt");
+            StreamWriter writer = new StreamWriter(@"C:\Users\Eddie\Desktop\words.copy.txt");
 
             String line;
 
