@@ -32,7 +32,7 @@ namespace GuessGame
             }
 
             bool won = true;
-            if(!won)
+            while(!won)
             {         
                 if(compNum < userNum)
                 {
@@ -46,6 +46,7 @@ namespace GuessGame
                 {
                     Console.WriteLine("Good Lawd! You got my word!");
                 }
+                won = CheckWin();
             }
         }
     }
