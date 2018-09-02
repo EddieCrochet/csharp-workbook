@@ -8,6 +8,10 @@ namespace Checkers
     {
         static void Main(string[] args)
         {
+            Board boa = new Board();
+            
+            boa.GenerateCheckers();
+            boa.DrawBoard();
             Console.WriteLine("Jew can dew eet!!");
         }
     }
@@ -21,6 +25,7 @@ namespace Checkers
         public Checker(string color, int[] position)
         {
             this.Position = position;
+            this.Color = color;
 
             int openCircleId = int.Parse("25CB", System.Globalization.NumberStyles.HexNumber);
             string openCircle = char.ConvertFromUtf32(openCircleId);
@@ -46,9 +51,9 @@ namespace Checkers
     {
         public List<Checker> Checkers { get; set; }
         
-        public Board(List<Checker> checkers)
+        public Board()
         {
-            this.Checkers = checkers;
+            Checkers = new List<Checker>();
             return;
         }
         
@@ -60,7 +65,39 @@ namespace Checkers
         
         public void GenerateCheckers()
         {
-            // Your code here
+            //Generate white
+            for (int i = 1; i < 8; i+=2)
+            {
+                Checker check = new Checker("white", new int[] {0, i});
+                Checkers.Add(check);
+            }
+            for (int i = 0; i < 8; i+=2)
+            {
+                Checker check = new Checker("white", new int[] {1, i});
+                Checkers.Add(check);
+            }
+            for (int i = 1; i < 8; i+=2)
+            {
+                Checker check = new Checker("white", new int[] {2, i});
+                Checkers.Add(check);
+            }
+
+            //Generate Black
+            for (int i = 0; i < 8; i+=2)
+            {
+                Checker check = new Checker("black", new int[] {5, i});
+                Checkers.Add(check);
+            }
+            for (int i = 1; i < 8; i+=2)
+            {
+                Checker check = new Checker("black", new int[] {6, i});
+                Checkers.Add(check);
+            }
+            for (int i = 0; i < 8; i+=2)
+            {
+                Checker check = new Checker("black", new int[] {7, i});
+                Checkers.Add(check);
+            }
             return;
         }
     
@@ -72,7 +109,24 @@ namespace Checkers
         
         public void DrawBoard()
         {
-            // Your code here
+            Console.WriteLine(" 01234567");
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write(i);
+
+                foreach (Checker c in Checkers)
+                {
+                    int x = c.Position[0];
+                    int y = c.Position[1];
+
+                    if (x == i)
+                    {
+                        Console.Write("".PadLeft(y) + c.Symbol);
+                    }
+                }
+
+                Console.WriteLine();
+            }
             return;
         }
         
