@@ -16,7 +16,7 @@ namespace Checkers
     {
         public string Symbol  { get; }
         public int[] Position  { get; set; }
-        public string Color { get; set; }
+        public string Color { get; }
         
         public Checker(string color, int[] position)
         {
@@ -44,18 +44,17 @@ namespace Checkers
 
     public class Board
     {
-        public string[][] Grid  { get; set; }
         public List<Checker> Checkers { get; set; }
         
-        public Board()
+        public Board(List<Checker> checkers)
         {
-            string[,] gameGrid = new string[8,8];
+            this.Checkers = checkers;
             return;
         }
         
         public void CreateBoard()
         {
-            // Your code here
+            //your code here
             return;
         }
         
@@ -64,7 +63,7 @@ namespace Checkers
             // Your code here
             return;
         }
-        
+    
         public void PlaceCheckers()
         {
             // Your code here
