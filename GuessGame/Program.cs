@@ -32,7 +32,7 @@ namespace GuessGame
             }
 
             bool won = true;
-            if(!CheckWin())
+            if(!won)
             {         
                 if(compNum < userNum)
                 {
