@@ -21,17 +21,33 @@ namespace GuessGame
 
             int compNum = Array.IndexOf(lines, compWord);
             int userNum = Array.IndexOf(lines, userGuess);
+           //Console.WriteLine(compNum);
 
+            while(compNum != userNum)
+            {
+                string userGuess2 = Console.ReadLine();
+                if(compNum < userNum)
+                {
+                    Console.WriteLine("That guess comes after my word!");
+                }
+                else if(userNum < compNum)
+                {
+                    Console.WriteLine("That guess comes before my word!");
+                }
+            }
+
+
+/*
             bool CheckWin()
             {
                 if(userNum == compNum)
-                {
-                return true;
-                }
-                return false;
+                    return true;
+                else
+                    return false;
             }
+            
 
-            bool won = true;
+            bool won = false;
             while(!won)
             {         
                 if(compNum < userNum)
@@ -48,6 +64,7 @@ namespace GuessGame
                 }
                 won = CheckWin();
             }
+            */
         }
     }
 }
