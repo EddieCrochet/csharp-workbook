@@ -8,17 +8,15 @@ namespace Checkers
     {
         static void Main(string[] args)
         {
-            Board boa = new Board();
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             
-            boa.GenerateCheckers();
-            boa.DrawBoard();
-            Console.WriteLine("Jew can dew eet!!");
+            Game game = new Game();
         }
     }
 
     public class Checker
     {
-        public string Symbol  { get; }
+        public string Symbol  { get;}
         public int[] Position  { get; set; }
         public string Color { get; }
         
@@ -32,7 +30,6 @@ namespace Checkers
             int closedCircleId = int.Parse("25CF", System.Globalization.NumberStyles.HexNumber);
             string closedCircle = char.ConvertFromUtf32(closedCircleId);
             //above code block creates the open and closed circle symbols and sets them to strings we can use
-
 
             if (color == "white")
             //white checkers will be designated by a closed circle
@@ -50,6 +47,7 @@ namespace Checkers
     public class Board
     {
         public List<Checker> Checkers { get; set; }
+        //all the board has is a list of checkers
         
         public Board()
         {
@@ -65,7 +63,7 @@ namespace Checkers
         
         public void GenerateCheckers()
         {
-            //Generate white
+            //Generate white - one row at a time
             for (int i = 1; i < 8; i+=2)
             {
                 Checker check = new Checker("white", new int[] {0, i});
@@ -82,7 +80,7 @@ namespace Checkers
                 Checkers.Add(check);
             }
 
-            //Generate Black
+            //Generate Black - one row at a time
             for (int i = 0; i < 8; i+=2)
             {
                 Checker check = new Checker("black", new int[] {5, i});
@@ -103,31 +101,97 @@ namespace Checkers
     
         public void PlaceCheckers()
         {
-            // Your code here
+            bool legalMove = true;
+
+            //this method actually moves the chekers
+            Console.WriteLine("Enter Pickup Row:");
+            int x1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Pickup Column:");
+            int y1 = Convert.ToInt32(Console.ReadLine());
+            //x1 and y1 are the original spot in that turn for the checkers to be moved
+
+            Console.WriteLine("Enter Placement Row:");
+            int x2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Placement Column");
+            int y2 = Convert.ToInt32(Console.ReadLine());
+            //x2 and y2 are the coordinates the checker will be moved to
+
+            int WorB;
+            if(scolor =="White")
+            {
+
+            }
+
+            if ((x2 < 8) && (x2 > 0) && (y2 < 8) && (y2 > 0)) 
+            {
+                if ((x2 != x1+1) || (x2 != x1-1) && (y2 != y1+1) || (y2 != y1-1))
+                {
+                    //if (land on friendly checker) 
+                    //{
+                        legalMove = false;
+                    //}
+                    //if (land on enemy checker) 
+                    //{
+                        //jump
+                    //}
+                } 
+                //else 
+                //{
+                    legalMove = false;
+                //}
+            //} else {
+                legalMove = false;    
+            }
+
+            //check for checker at location
+            foreach (Checker c in Checkers)
+            {
+                if (c.Position[0] == x2 && c.Position[1] == y2)
+                //if the spot is taken return the messgae and begin turn again
+                {
+                    Console.WriteLine("There is already a checker at that location!");
+                    return; // this ends the function
+                }
+            }
+
+            Checker check = SelectChecker(x1,y1);
+            //if it's availeable to move there, this is the actual coordinate switch
+
+            check.Position[0] = x2;
+            check.Position[1] = y2;
+
+            DrawBoard();
+
             return;
         }
         
         public void DrawBoard()
         {
-            Console.WriteLine(" 01234567");
-            for (int i = 0; i < 8; i++)
+            string[,] grid = new string[8,8];
+//TRY/CATCH FOR OUT OF BOUNDS
+
+            //our grid that will hold our checkers
+            Console.WriteLine("\t0\t1\t2\t3\t4\t5\t6\t7\t");
+            //tabs to get the y axis to be even with the checker spot on the grid
+            foreach (Checker check in Checkers)
             {
-                Console.Write(i);
+                int x = check.Position[0];
+                int y = check.Position[1];
 
-                foreach (Checker c in Checkers)
-                {
-                    int x = c.Position[0];
-                    int y = c.Position[1];
-
-                    if (x == i)
-                    {
-                        Console.Write("".PadLeft(y) + c.Symbol);
-                    }
-                }
-
-                Console.WriteLine();
+                grid[x,y] = check.Symbol;
+                //draws the symbol of that checker for every spot on the grid that is taken
             }
-            return;
+
+            for (int i=0;i<8;i++)
+            {
+                Console.Write("{0}\t", i);
+                for (int j=0;j<8;j++)
+                {
+                    Console.Write("{0}\t",grid[i,j]);
+                    //prints out our x axis from the grid and once again spaces them accordingly
+                }
+                Console.Write("\n");
+            }
         }
         
         public Checker SelectChecker(int row, int column)
@@ -144,6 +208,7 @@ namespace Checkers
         public bool CheckForWin()
         {
             return Checkers.All(x => x.Color == "white") || !Checkers.Exists(x => x.Color == "white");
+            //if only one color of checker is left on the board, that team will win!
         }
     }
 
@@ -151,7 +216,16 @@ namespace Checkers
     {
         public Game()
         {
-            // Your code here
+            Board board = new Board();
+
+            board.GenerateCheckers();
+
+            board.DrawBoard();
+
+            while (!board.CheckForWin())
+            {
+                board.PlaceCheckers();
+            }
         }
     }
 }
