@@ -101,9 +101,7 @@ namespace Checkers
     
         public void PlaceCheckers()
         {
-            bool legalMove = true;
-
-            //this method actually moves the chekers
+    //this method actually moves the chekers
             Console.WriteLine("Enter Pickup Row:");
             int x1 = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter Pickup Column:");
@@ -116,45 +114,68 @@ namespace Checkers
             int y2 = Convert.ToInt32(Console.ReadLine());
             //x2 and y2 are the coordinates the checker will be moved to
 
-            int WorB;
-            if(scolor =="White")
-            {
+            Checker check = SelectChecker(x1,y1);
 
+            int WorB = 0;
+            if(check.Color == "None")
+            {
+                Console.WriteLine("There is no checker in that spot.");
+                return;
+            }
+            if(check.Color == "White")
+            {
+                WorB = 1;
+            }
+            else if (check.Color == "Black")
+            {
+                WorB = -1;
             }
 
             if ((x2 < 8) && (x2 > 0) && (y2 < 8) && (y2 > 0)) 
             {
-                if ((x2 != x1+1) || (x2 != x1-1) && (y2 != y1+1) || (y2 != y1-1))
+                if ((x2 == x1+1) || (x2 == x1-1) && (y2 == y1+WorB))
                 {
-                    //if (land on friendly checker) 
-                    //{
-                        legalMove = false;
-                    //}
-                    //if (land on enemy checker) 
-                    //{
+                    Checker newSpace = SelectChecker(x2,y2);
+                    if (check.Color == newSpace.Color)
+                    {
+                        Console.WriteLine("That spot is a friendly checker, You can't move there.");
+                        return;
+                    }
+                    else if (check.Color != newSpace.Color)
+                    {
                         //jump
-                    //}
+                    }
+                    else if (newSpace.Color == "None") 
+                    {
+                        CheckForWin();
+                    }
                 } 
-                //else 
-                //{
-                    legalMove = false;
-                //}
-            //} else {
-                legalMove = false;    
-            }
-
-            //check for checker at location
-            foreach (Checker c in Checkers)
-            {
-                if (c.Position[0] == x2 && c.Position[1] == y2)
-                //if the spot is taken return the messgae and begin turn again
+                else 
                 {
-                    Console.WriteLine("There is already a checker at that location!");
-                    return; // this ends the function
+                    //fails, not a diagonal-one-away-space
                 }
+            } 
+            else 
+            {
+                //fails, selected space out of board bounds   
             }
 
-            Checker check = SelectChecker(x1,y1);
+            /*
+            
+                        //check for checker at location
+                        foreach (Checker c in Checkers)
+                        {
+                            if (c.Position[0] == x2 && c.Position[1] == y2)
+                            //if the spot is taken return the messgae and begin turn again
+                            {
+                                Console.WriteLine("There is already a checker at that location!");
+                                return; // this ends the function
+                            }
+                        }
+
+             */
+
+            
             //if it's availeable to move there, this is the actual coordinate switch
 
             check.Position[0] = x2;
@@ -196,7 +217,15 @@ namespace Checkers
         
         public Checker SelectChecker(int row, int column)
         {
-            return Checkers.Find(x => x.Position.SequenceEqual(new List<int> { row, column }));
+            try 
+            {
+                return Checkers.Find(x => x.Position.SequenceEqual(new List<int> { row, column }));
+            } 
+            catch 
+            {
+                Checker newChecker = new Checker("None", new int[] {row, column});
+                return newChecker;
+            }            
         }
         
         public void RemoveChecker(int row, int column)
@@ -207,7 +236,7 @@ namespace Checkers
         
         public bool CheckForWin()
         {
-            return Checkers.All(x => x.Color == "white") || !Checkers.Exists(x => x.Color == "white");
+            return Checkers.All(x => x.Color == "White") || !Checkers.Exists(x => x.Color == "White");
             //if only one color of checker is left on the board, that team will win!
         }
     }
