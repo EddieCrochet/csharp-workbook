@@ -8,7 +8,7 @@ namespace GuessGame
         static void Main(string[] args)
         {
             string[] lines = File.ReadAllLines(@"C:\Users\Eddie\Desktop\words_alpha.txt");
-            //reads all our lines from the files into an array
+            //reads every english word from the file into an array
 
             Random rng = new Random();
             int r = rng.Next(lines.Length);
@@ -19,22 +19,32 @@ namespace GuessGame
             Console.WriteLine("My word I picked is {0}", compWord);
             string userGuess = Console.ReadLine();
 
-            int compNum = Array.IndexOf(lines, compWord);
+            int compNum = Array.IndexOf(lines, compWord); //or just r
             int userNum = Array.IndexOf(lines, userGuess);
-           //Console.WriteLine(compNum);
+            //Console.WriteLine(userNum);
 
             while(compNum != userNum)
             {
-                string userGuess2 = Console.ReadLine();
                 if(compNum < userNum)
                 {
-                    Console.WriteLine("That guess comes after my word!");
+                    Console.WriteLine("That guess comes after my word! Try again!");
                 }
                 else if(userNum < compNum)
                 {
-                    Console.WriteLine("That guess comes before my word!");
+                    Console.WriteLine("That guess comes before my word! Try again!");
                 }
+                userGuess = Console.ReadLine();
+                userNum = Array.IndexOf(lines, userGuess);
             }
+
+            if(compNum == userNum)
+            {
+                Console.WriteLine("Holy crap, you won.");
+            }
+            Console.WriteLine();
+
+
+
 
 
 /*
