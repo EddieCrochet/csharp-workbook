@@ -32,44 +32,77 @@ namespace TicTacToe
             int row = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter Column:");
             int column = int.Parse(Console.ReadLine());
+
+            playerTurn = (playerTurn == "X") ? "O": "X";
+
+            PlaceMark(row, column);
+            CheckForWin();
         }
 
         public static void PlaceMark(int row, int column)
         {
-        // your code goes here
+            board[row][column] = playerTurn;
         }
 
         public static bool CheckForWin()
         {
-            // your code goes here
+            if (HorizontalWin() || VerticalWin() || DiagonalWin() == true)
+            {
+                Console.WriteLine("Player " +playerTurn + " won!!");
+            }
 
             return false;
         }
 
         public static bool CheckForTie()
         {
-            // your code goes here
+            if  (board[0][0] == playerTurn &&
+                board[0][1] == playerTurn &&
+                board[0][2] == playerTurn &&
+                board[1][0] == playerTurn &&
+                board[1][1] == playerTurn &&
+                board[1][2] == playerTurn &&
+                board[2][0] == playerTurn &&
+                board[2][1] == playerTurn &&
+                board[2][2] == playerTurn)
+                {
+                    Console.WriteLine("It's a tie!");
+                    return true;
+                }
 
             return false;
         }
         
         public static bool HorizontalWin()
         {
-        // your code goes here
-
-        return false;
+            if (board[0][0] == playerTurn && board[0][1] == playerTurn && board[0][2] == playerTurn ||
+                board[1][0] == playerTurn && board[1][1] == playerTurn && board[1][2] == playerTurn ||
+                board[2][0] == playerTurn && board[2][1] == playerTurn && board[2][2] == playerTurn)  
+            {
+                return true;
+            }
+            return false;
         }
 
         public static bool VerticalWin()
         {
-            // your code goes here
+            if (board[0][0] == playerTurn && board[1][0] == playerTurn && board[2][0] == playerTurn ||
+                board[0][1] == playerTurn && board[1][1] == playerTurn && board[2][1] == playerTurn ||
+                board[0][2] == playerTurn && board[1][2] == playerTurn && board[2][2] == playerTurn)  
+            {
+                return true;
+            }
 
             return false;
         }
 
         public static bool DiagonalWin()
         {
-            // your code goes here
+            if (board[0][0] == playerTurn && board[1][1] == playerTurn && board[2][2] == playerTurn ||
+                board[0][2] == playerTurn && board[1][1] == playerTurn && board[2][0] == playerTurn)  
+            {
+                return true;
+            }
 
             return false;
         }
