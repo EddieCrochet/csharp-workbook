@@ -1,86 +1,132 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Mastermind
 {
-    class Program
+    class Ball
     {
-        // possible letters in code
-        public static char[] letters = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
-        
-        // size of code
-        public static int codeSize = 4;
-        
-        // number of allowed attempts to crack the code
-        public static int allowedAttempts = 10;
-        
-        // number of tried guesses
-        public static int numTry = 0;
-        
-        // test solution
-        public static char[] solution = new char[] {'a', 'b', 'c', 'd'};
-        
-        // game board
-        public static string[][] board = new string[allowedAttempts][];
-        
-        
-        public static void Main()
-        {
-            char[] guess = new char[4];
+        public string Letter{get; private set;}
 
-            CreateBoard();
-            DrawBoard();
-            Console.WriteLine("Enter Guess:");
-            guess = Console.ReadLine().ToCharArray();
+        public Ball (string letter)
+        {
+            this.Letter = letter;
+        }
+    }
+    class Row
+    {
+        public Ball[] balls = new Ball[4];
+        //creates array of 4 of the Ball class
 
-            // leave this command at the end so your program does not close automatically
-            Console.ReadLine();
-        }
-        
-        public static bool CheckSolution(char[] guess)
+        public Row (Ball[] balls)
         {
-            // Your code here
+            this.balls = balls;
+        }
 
-            return false;
-        }
-        
-        public static string GenerateHint(char[] guess)
+        public string Balls
+        {get
         {
-            // Your code here
-            return " ";
-        }
-        
-        public static void InsertCode(char[] guess)
-        {
-            // Your code here
-        }
-        
-        public static void CreateBoard()
-        {
-            for (var i = 0; i < allowedAttempts; i++)
+            foreach(var ball in this.balls)
             {
-                board[i] = new string[codeSize + 1];
-                for (var j = 0; j < codeSize + 1; j++)
+                Console.WriteLine(ball.Letter);
+            }
+        return "";
+        }
+        }
+    }
+
+    class Game
+    {
+        public List<Row> rows = new List<Row>();
+        //creates a private list of the Row class
+        public string[] answer = new string[4];
+        //create a new array of strings with the size of 4 to hold our answer
+        public int guesses = 0;
+
+        public Game(string[] answer, int guesses)
+        {
+            this.answer = answer;
+            this.guesses = guesses;
+        }
+
+        public string Score (Row row)
+        {
+            string[] answerClone = (string[]) this.answer.Clone ();
+            // red is correct letter and correct position
+            // white is correct letters minus red
+            // this.answer => ["a", "b", "c", "d"]
+            // row.balls => [{ Letter: "c" }, { Letter: "b" }, { Letter: "d" }, { Letter: "a" }]
+            int red = 0;
+            for (int i = 0; i<4; i++)
+            {
+                if (answerClone[i] == row.balls[i].Letter)
+                red++;
+            }
+            int white = 0;
+            for(int i = 0; i<4; i++)
+            {
+                int foundIndex = Array.IndexOf(answerClone, row.balls[i].Letter);
+                if(foundIndex > -1)
                 {
-                    board[i][j] = " ";
+                    white++;
+                    answerClone[foundIndex] = null;
                 }
             }
+            return $"{red} - {white - red}";
         }
-        
-        public static void DrawBoard()
+    }
+    class program
+    {
+        public static void Main(string[] args)
         {
-            for (var i = 0; i < board.Length; i++)
-            {
-                Console.WriteLine("|" + String.Join("|", board[i]));
-            }
+            string[] answer = CreateAnswer();
             
-        }
-        
-        public static void GenerateRandomCode() {
-            Random rnd = new Random();
-            for(var i = 0; i < codeSize; i++)
+            Game game = new Game(answer, 4);
+            bool won = false;
+            for (int turns = game.guesses; turns > 0; turns--)
             {
-                solution[i] = letters[rnd.Next(0, letters.Length)];
+                Console.WriteLine("You have {0} tries left!", turns);
+                Console.WriteLine("Choose four letters: ");
+                string letters = Console.ReadLine();
+                //reads the chosen letters as a string letters
+                Ball[] balls = new Ball[4];
+                for (int i = 0; i<4; i++)
+                //checks each one of the balls
+                {
+                    balls[i] = new Ball(letters[i].ToString());
+                    //each of the 4 balls created in the array are assigned to a string of one letter
+                    //the letters come from string the user typed in and entered to the string letters
+                }
+                Row row = new Row(balls);
+                //makes a new Row called row where we pass in the users' balls, all now in their own separate strings
+                game.rows.Add(row);
+                //add the row of the new balls we created to the list of rows in the game
+
+                //checks if the correct answer has been guessed every turn
+                if (game.Score(row) == "4 - 0")
+                {
+                    Console.WriteLine("You win!");
+                    won = true;
+                    break;
+                }
+                else
+                    Console.WriteLine(game.Score(row));
+                //tells me the score (red and white respectively) for that particular turn
             }
+            if (won == false)
+                Console.WriteLine("Out of turns!");
+        }
+
+        private static string[] CreateAnswer()
+        {
+            string[] answer = new string[4];
+            for (int i=0; i < 4; i++)
+            {
+                Random rnd = new Random();
+                int num = rnd.Next(0, 4);
+                char letter = (char)('a' + num);
+                answer[i] = letter.ToString();
+            }
+            return answer;
         }
     }
 }
