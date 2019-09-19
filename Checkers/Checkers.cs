@@ -146,7 +146,7 @@ namespace Checkers
                         //see if we find a checker in the target spot
                         newSpace = SelectChecker(x2,y2);
 
-                        Console.WriteLine("no checker found in space");
+                        Console.WriteLine("Move successful");
                         //if no checker present, move 1 diagonally
 
                         check.Position[0] = x2;
